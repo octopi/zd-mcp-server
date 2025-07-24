@@ -123,10 +123,10 @@ For other MCP-compatible clients (Cline, Windsurf, etc.), refer to their documen
 | `zendesk_get_ticket` | Retrieve a ticket by ID | "Get ticket #12345" |
 | `zendesk_get_ticket_details` | Get detailed ticket with comments | "Show me full details for ticket #67890" |
 | `zendesk_search` | Search tickets with query syntax | "Find all urgent tickets from last week" |
-| `zendesk_create_ticket` | Create a new ticket | "Create a high priority ticket for login issues" |
-| `zendesk_update_ticket` | Update ticket properties | "Set ticket #555 to solved status" |
+| `zendesk_create_ticket` (disabled) | Create a new ticket | "Create a high priority ticket for login issues" |
+| `zendesk_update_ticket` (disabled) | Update ticket properties | "Set ticket #555 to solved status" |
 | `zendesk_add_private_note` | Add internal agent notes | "Add a private note about investigation progress" |
-| `zendesk_add_public_note` | Add public customer comments | "Reply to customer with solution steps" |
+| `zendesk_add_public_note` (disabled) | Add public customer comments | "Reply to customer with solution steps" |
 | `zendesk_get_linked_incidents` | Get incident tickets linked to problems | "Show incidents related to this problem ticket" |
 
 ## 💬 Usage Examples
