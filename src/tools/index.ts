@@ -116,6 +116,50 @@ export function zenDeskTools(server: McpServer) {
     }
   );
 
+  server.tool(
+    'zendesk_set_tags_on_ticket',
+    'Set tags on a Zendesk ticket. Replaces all existing tags, so to add tags, you must include all tags you want to keep.',
+    {
+      ticket_id: z.string().describe("The ID of the ticket to set tags on"),
+      tags: z.array(z.string()).describe("The tags to set on the ticket. Replace all existing tags."),
+    },
+    async ({ ticket_id, tags }) => {
+          try {
+        const ticketData: any = {
+          ticket: {}
+        };
+
+        if (tags) ticketData.ticket.tags = tags;
+
+        const result = await new Promise((resolve, reject) => {
+          (client as any).tickets.update(parseInt(ticket_id, 10), ticketData, (error: Error | undefined, req: any, result: any) => {
+            if (error) {
+              console.log(error);
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          });
+        });
+
+        return {
+          content: [{
+            type: "text",
+            text: JSON.stringify(result, null, 2)
+          }]
+        };
+      } catch (error: any) {
+        return {
+          content: [{
+            type: "text",
+            text: `Error: ${error.message || 'Unknown error occurred'}`
+          }],
+          isError: true
+        };
+      }
+    }
+  )
+
   // server.tool(
   //   "zendesk_update_ticket",
   //   "Update a Zendesk ticket's properties",
@@ -319,7 +363,7 @@ export function zenDeskTools(server: McpServer) {
     "zendesk_search",
     "Search for Zendesk tickets based on a query",
     {
-      query: z.string().describe("Search query (e.g., 'status:open', 'priority:urgent', 'tags:need_help')"),
+      query: z.string().describe("Search query (e.g., 'status:open', 'priority:urgent', 'feature does not work')"),
     },
     async ({ query }) => {
       try {
